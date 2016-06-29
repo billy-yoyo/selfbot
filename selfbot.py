@@ -140,7 +140,7 @@ def get_seqs(strn, is_number=False):
     if best_pal == "":
         best_pal = "Doesn't contain a palindrome"
 
-    return [rising_sequence, falling_sequence, repeat_sequence, best_pal, digit_sum]
+    return [best_rising_sequence, best_falling_sequence, best_repeat_sequence, best_pal, digit_sum]
 
 
 nums = ["", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine"]
@@ -412,6 +412,8 @@ def run_command(cmd, ctx=None):
                 "  -  Top 10 most frequent digits: " + freqs,
                 "  -  The word sorted alphabetically: " + sortword
             ]) + "\n```"
+        elif spl[0] == "wordify":
+            return "```" + spl[1] + " is written as:\n " + get_word(int(spl[1])) + "```"
         elif spl[0] == "number":
             n = int(spl[1])
             real_n = n
@@ -501,7 +503,6 @@ def process_message(message):
     global last_edit
     if message.author.id == client.user.id and message.id != last_edit:  # is me
         text = message.content
-        print(text)
         changed = False
         c_open = data["open"]
         c_close = data["close"]
